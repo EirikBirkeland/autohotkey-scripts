@@ -7,7 +7,7 @@
   if Check = 1
   { ; Convert clipboard data to lower-case and paste
     StringLower Clipboard, Clipboard
-    StringUpper Clipboard, Clipboard, T
+    Clipboard := RegExReplace(Clipboard, "^([a-z])", "$u1")
     Send, ^v
     return
   }
