@@ -1,13 +1,22 @@
-; CTRL+U toggles text between cases.
+; CTRL+U toggles text between cases
+; I AM A SENTENCE --> I am a sentence
+; I aM a SeNtEnCe --> I AM A SENTENCE
+
+; Set to true in order to capitalize sentence when converting into lC
+NORMALIZATION := true
+
 ^u::
   Clipboard := ""
-  Send, ^c ;copies selected text
-  ClipWait
+  Send, ^a
+  Send, ^c ; copies selected text
+  CLIPWAIT
   Check := RegExMatch(Clipboard, "^[^a-z]+$")
   if Check = 1
   { ; Convert clipboard data to lower-case and paste
     StringLower Clipboard, Clipboard
-    Clipboard := RegExReplace(Clipboard, "^([a-z])", "$u1")
+    if NORMALIZATION {
+      Clipboard := RegExReplace(Clipboard, "^([a-z])", "$u1")
+    }
     Send, ^v
     return
   }
