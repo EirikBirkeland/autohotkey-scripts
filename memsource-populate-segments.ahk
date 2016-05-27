@@ -1,5 +1,6 @@
 #Include lib\reload.ahk
 #InstallKeybdHook
+
 ^+r::
   reload()
   return
